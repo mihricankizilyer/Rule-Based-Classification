@@ -4,7 +4,6 @@
 
 
 # Reading Data
-
 import pandas as pd
 import numpy as np
 
@@ -16,7 +15,6 @@ df = load_persona('datasets/csv_path/persona.csv')
 
 
 # 1. General information about the dataset
-
 def check_df(dataframe, head = 5):
 
     """
@@ -118,22 +116,20 @@ agg_df = agg_df.reset_index()
 #####################################
 
 # Converting age variable to categorical variable and adding 'agg_df'
-
 agg_df["age_cat"] = pd.cut(agg_df["AGE"], bins = [0,18,23,30,40,69],labels = ['0_18','19_23','24_30','31_40','41_70'])
-agg_df
 
 #####################################
 # TASK 6
 #####################################
 
 # Identify new level-based customers (personas).
-
-agg_df["customer_level_based"] = [agg_df["COUNTRY"][i].upper() + "_"+
-                                  agg_df["SOURCE"][i].upper() + "_"+
+agg_df["customer_level_based"] = [agg_df["COUNTRY"][i].upper() + "_" +
+                                  agg_df["SOURCE"][i].upper() + "_" +
                                   agg_df["SEX"][i].upper() + "_" +
-                                  agg_df["age_cat"][i].upper() + "_"
+                                  agg_df["age_cat"][i].upper()
                                   for i in range(0,len(agg_df))]
 agg_df = agg_df.groupby("customer_level_based").agg({"PRICE":"mean"})
+
 
 #####################################
 # TASK 7
@@ -142,16 +138,16 @@ agg_df = agg_df.groupby("customer_level_based").agg({"PRICE":"mean"})
 # Segment new customers (personas).
 # Divide new customers into 4 segments based on price.
 
-agg_df["SEGMENT"] = pd.qcut(agg_df["PRICE"], 4, labels = ["D","C","B","A"])
-agg_df.groupby("SEGMENT").agg({"PRICE":["mean","min","max","sum"]})
-agg_df[agg_df["SEGMENT"] == "C"].describe().T
+agg_df["SEGMENT"] = pd.qcut(agg_df["PRICE"], 4, labels=["D","C","B","A"])
+agg_df[["SEGMENT","PRICE"]].groupby("SEGMENT").agg({"PRICE": ["mean","max","sum"]})
+agg_df[["SEGMENT","PRICE"]].groupby("SEGMENT").get_group("C").agg({"PRICE": ["mean","max","sum"]})
+
 
 #####################################
 # TASK 8
 #####################################
 
 # Which segment does a Turkish woman using android at the age of 33 belong to and how much income is expected to earn on average?
-
 new_user1 = "TUR_ANDROID_FEMALE_31_40"
 agg_df[agg_df["customer_level_based"] == new_user1].groupby("new_user1").agg({"PRICE":["mean"]})
 
