@@ -29,8 +29,8 @@ def check_df(dataframe, head=5):
 check_df(df, 5)
 
 # 2. Number and frequencies of Unique SOURCE
-df["SOURCE"].nunique() # value_count -> The classes of a categorical variable give the frequencies of these classes.
-df["SOURCE"].value_counts()
+df["SOURCE"].nunique() 
+df["SOURCE"].value_counts() # value_count -> The classes of a categorical variable give the frequencies of these classes.
 
 # 3. Number of unique PRICE
 df["PRICE"].nunique()
