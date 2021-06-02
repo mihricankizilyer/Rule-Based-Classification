@@ -140,3 +140,5 @@ agg_df[agg_df["customer_level_based"]  == new_user1]
 # What segment does a 33-year-old French woman using ios belong to and what is the average income expected to earn?
 new_user2 = "FRA_IOS_FEMALE_31_40"
 agg_df[agg_df["customer_level_based"] == new_user2]
+
+
