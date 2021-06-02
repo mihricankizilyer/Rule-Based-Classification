@@ -105,7 +105,7 @@ agg_df["customer_level_based"] = [  row[0].upper() + "_" +
                                     row[0].upper()
                                     for row in agg_df.values] 
 
-agg = agg_df[["customer_level_based","PRICE"]]
+agg_df = agg_df[["customer_level_based","PRICE"]]
 
 agg_df = agg_df.groupby("customer_level_based").agg({"PRICE":"mean"})
 
